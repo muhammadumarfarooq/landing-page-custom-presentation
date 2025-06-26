@@ -1,27 +1,26 @@
-export const dynamic = "force-static";
-
 import { slides } from "@/lib/slides";
 import SlideLayout from "@/components/SlideLayout";
-import SlideContent from "@/components/SlideContent";
 import { notFound } from "next/navigation";
 import { Metadata } from "next";
+import SlideContent from "@/components/SlideContent";
 
 export async function generateMetadata({
   params,
 }: {
   params: { id: string };
 }): Promise<Metadata> {
-  const id = Number((await params).id);
+  const id = Number(params.id);
   const slide = slides.find((s) => s.id === id);
 
   if (!slide) {
     return {
-      title: "Slide Not Found",
+      title: "Slide Not Found | Presentation",
+      description: "The slide you are looking for does not exist.",
     };
   }
 
   return {
-    title: slide.title,
+    title: `${slide.title} | Presentation`,
     description: slide.description,
   };
 }
@@ -32,19 +31,15 @@ export async function generateStaticParams() {
   }));
 }
 
-export default async function SlidePage({
-  params,
-}: {
-  params: { id: string };
-}) {
-  const id = Number((await params).id);
+export default function SlidePage({ params }: { params: { id: string } }) {
+  const id = Number(params.id);
   const slide = slides.find((s) => s.id === id);
 
   if (!slide) return notFound();
 
   return (
     <SlideLayout className={slide.backgroundColor}>
-      <SlideContent slide={slide} />
+      <SlideContent slide={slide} total={slides.length} />
     </SlideLayout>
   );
 }

@@ -1,22 +1,25 @@
 "use client";
 
-import { slides } from "@/lib/slides";
-import { useRouter } from "next/navigation";
-
-export default function ProgressDots({ current }: { current: number }) {
-  const router = useRouter();
-
+export default function ProgressDots({
+  current,
+  total,
+}: {
+  current: number;
+  total: number;
+}) {
   return (
-    <div className="absolute bottom-6 flex gap-2">
-      {slides.map((slide) => (
-        <button
-          key={slide.id}
-          onClick={() => router.push(`/slides/${slide.id}`)}
-          className={`h-3 w-3 rounded-full ${
-            current === slide.id ? "bg-white" : "bg-white/50"
-          }`}
-        />
-      ))}
+    <div className="flex gap-2 items-center">
+      {Array.from({ length: total }).map((_, index) => {
+        const isActive = index + 1 === current;
+        return (
+          <div
+            key={index}
+            className={`w-2.5 h-2.5 gap-1.5 rounded-full transition-all ${
+              isActive ? "bg-primary scale-110" : "bg-muted"
+            }`}
+          />
+        );
+      })}
     </div>
   );
 }

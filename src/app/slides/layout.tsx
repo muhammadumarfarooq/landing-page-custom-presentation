@@ -1,26 +1,15 @@
-"use client";
+import { cn } from "@/lib/utils";
 
-import { usePathname } from "next/navigation";
-import { motion } from "framer-motion";
-
-export default function SlidesLayout({
+export default function SlideLayout({
   children,
+  className,
 }: {
   children: React.ReactNode;
+  className?: string;
 }) {
-  const pathname = usePathname();
-
   return (
-    <motion.div
-      key={pathname}
-      initial={{ opacity: 0, y: 30 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: -30 }}
-      transition={{ duration: 0.5, ease: "easeOut" }}
-      layout
-      className="min-h-screen w-full"
-    >
+    <div className={cn("min-h-screen transition-colors", className)}>
       {children}
-    </motion.div>
+    </div>
   );
 }

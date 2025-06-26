@@ -3,7 +3,6 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { ThemeToggle } from "@/components/ThemeToggle";
-import DownloadPdfButton from "@/components/DownloadPdfButton";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -34,9 +33,7 @@ export default function RootLayout({
           <div className="absolute top-4 right-4">
             <ThemeToggle />
           </div>
-          <div className="absolute top-4 left-4">
-            <DownloadPdfButton />
-          </div>
+
           {children}
         </ThemeProvider>
       </body>

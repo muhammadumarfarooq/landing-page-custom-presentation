@@ -1,14 +1,23 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
+import jsPDF from "jspdf";
 
 export default function DownloadPdfButton() {
   const handleDownload = async () => {
-    const element = document.body; // You can target specific container if needed
+    const capture = document.getElementById("pdf-content");
+    if (!capture) {
+      alert("Capture element not found!");
+      return;
+    }
 
-    const canvas = await html2canvas(element);
+    const canvas = await html2canvas(capture, {
+      scale: 2,
+      backgroundColor: "#ffffff",
+      useCORS: true,
+    });
+
     const imgData = canvas.toDataURL("image/png");
 
     const pdf = new jsPDF({
@@ -18,7 +27,7 @@ export default function DownloadPdfButton() {
     });
 
     pdf.addImage(imgData, "PNG", 0, 0, canvas.width, canvas.height);
-    pdf.save("presentation.pdf");
+    pdf.save("slide.pdf");
   };
 
   return (

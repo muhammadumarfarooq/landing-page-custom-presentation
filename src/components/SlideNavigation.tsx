@@ -1,8 +1,7 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
-import { useKeyboardNavigation } from "@/hooks/useKeyboardNavigation";
 import { useRouter } from "next/navigation";
+import { Button } from "@/components/ui/button";
 
 export default function SlideNavigation({
   current,
@@ -13,24 +12,21 @@ export default function SlideNavigation({
 }) {
   const router = useRouter();
 
-  const goPrev = () => {
-    if (current > 1) router.push(`/slides/${current - 1}`);
-  };
-
-  const goNext = () => {
-    if (current < total) router.push(`/slides/${current + 1}`);
-  };
-
-  useKeyboardNavigation(current, total);
-
   return (
-    <div className="mt-6 flex gap-4">
+    <div className="flex gap-4 justify-center">
       {current > 1 && (
-        <Button variant="secondary" onClick={goPrev}>
+        <Button
+          variant="secondary"
+          onClick={() => router.push(`/slides/${current - 1}`)}
+        >
           Previous
         </Button>
       )}
-      {current < total && <Button onClick={goNext}>Next</Button>}
+      {current < total && (
+        <Button onClick={() => router.push(`/slides/${current + 1}`)}>
+          Next
+        </Button>
+      )}
     </div>
   );
 }
