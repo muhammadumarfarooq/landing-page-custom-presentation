@@ -66,19 +66,32 @@ export default function SlideContent({
       exit="exit"
       className="min-h-screen flex flex-col justify-center items-center text-center px-4 relative"
     >
-      <motion.img
-        variants={itemVariants}
-        src={slide.image}
-        alt={slide.title}
-        className="w-72 md:w-80 h-auto mb-4 rounded-md"
-        draggable={false}
-      />
+      <div className="backdrop-blur-md bg-white/10 border border-white/30 rounded-2xl p-4 shadow-2xl mb-6">
+        <motion.img
+            variants={itemVariants}
+            src={slide.image}
+            alt={slide.title}
+            className="w-96 md:w-96 h-auto rounded-xl ring-2 ring-white/20"
+            draggable={false}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+        />
+      </div>
 
-      <motion.h1 variants={itemVariants} className="text-5xl font-bold">
+      <motion.h1
+          variants={itemVariants}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, ease: [0.65, 0, 0.35, 1] }}
+          className="text-5xl md:text-6xl font-extrabold bg-gradient-to-r from-purple-500 via-pink-500 to-red-500 bg-clip-text text-transparent"
+      >
         {slide.title}
       </motion.h1>
 
-      <motion.p variants={itemVariants} className="text-lg max-w-xl mt-2">
+      <motion.p
+          variants={itemVariants}
+          className="text-lg md:text-xl max-w-xl mt-2 text-neutral-700 dark:text-neutral-200"
+      >
         {slide.description}
       </motion.p>
 
@@ -86,12 +99,11 @@ export default function SlideContent({
         <SlideNavigation current={id} total={total} />
       </motion.div>
 
-      <motion.div
-        variants={itemVariants}
+      <div
         className="absolute bottom-6 left-1/2 -translate-x-1/2"
       >
         <ProgressDots current={id} total={total} />
-      </motion.div>
+      </div>
     </motion.div>
   );
 }

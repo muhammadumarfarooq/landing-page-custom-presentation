@@ -120,3 +120,18 @@
     @apply bg-background text-foreground;
   }
 }
+
+.animated-gradient {
+  position: relative;
+  background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+  background-size: 400% 400%;
+  animation: gradientAnimation 12s ease infinite;
+}
+
+.animated-gradient::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4); /* Darken effect */
+  z-index: 0;
+}
