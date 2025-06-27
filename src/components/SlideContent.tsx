@@ -26,11 +26,11 @@ export default function SlideContent({
         staggerChildren: 0.15,
       },
     },
-    exit: { opacity: 0 },
+    exit: { opacity: 0, transition: { duration: 0.3 } },
   };
 
   const itemVariants = {
-    hidden: { opacity: 0, y: 30, scale: 0.98 },
+    hidden: { opacity: 0, y: 30, scale: 0.97 },
     visible: {
       opacity: 1,
       y: 0,
@@ -40,7 +40,7 @@ export default function SlideContent({
         ease: [0.65, 0, 0.35, 1] as const,
       },
     },
-    exit: { opacity: 0, y: -30, scale: 0.98 },
+    exit: { opacity: 0, y: -20, scale: 0.97, transition: { duration: 0.3 } },
   };
 
   useEffect(() => {
@@ -66,9 +66,11 @@ export default function SlideContent({
       exit="exit"
       className="min-h-screen flex flex-col justify-center items-center text-center px-4 relative overflow-hidden"
     >
-      <div className="backdrop-blur-md bg-white/10 border border-white/30 rounded-2xl p-4 shadow-2xl mb-6">
+      <motion.div
+        variants={itemVariants}
+        className="backdrop-blur-md bg-white/10 border border-white/30 rounded-2xl p-4 shadow-2xl mb-6"
+      >
         <motion.img
-          variants={itemVariants}
           src={slide.image}
           alt={slide.title}
           className="h-64 md:h-72 w-auto rounded-xl ring-2 ring-white/20 object-contain"
@@ -76,13 +78,10 @@ export default function SlideContent({
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
         />
-      </div>
+      </motion.div>
 
       <motion.h1
         variants={itemVariants}
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, ease: [0.65, 0, 0.35, 1] }}
         className="text-3xl md:text-4xl font-extrabold bg-gradient-to-r from-purple-500 via-pink-500 to-red-500 bg-clip-text text-transparent"
       >
         {slide.title}
@@ -90,7 +89,7 @@ export default function SlideContent({
 
       <motion.p
         variants={itemVariants}
-        className="text-[12px] md:text-[14px] max-w-xl mt-2 text-neutral-700 dark:text-neutral-200"
+        className="text-sm md:text-base max-w-xl mt-2 text-neutral-700 dark:text-neutral-200"
       >
         {slide.description}
       </motion.p>

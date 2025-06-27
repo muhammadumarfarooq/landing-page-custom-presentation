@@ -13,7 +13,7 @@ export default function SlideNavigation({
   const router = useRouter();
 
   return (
-    <div className="flex gap-4 justify-center">
+    <div className="flex flex-col sm:flex-row gap-4 justify-center">
       {current > 1 && (
         <Button
           variant="secondary"
@@ -23,7 +23,10 @@ export default function SlideNavigation({
         </Button>
       )}
       {current < total && (
-        <Button onClick={() => router.push(`/slides/${current + 1}`)}>
+        <Button
+          onClick={() => router.push(`/slides/${current + 1}`)}
+          className="w-full sm:w-auto"
+        >
           Next
         </Button>
       )}

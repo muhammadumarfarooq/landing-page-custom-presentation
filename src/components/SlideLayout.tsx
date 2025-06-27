@@ -9,15 +9,15 @@ export default function SlideLayout({
   className?: string;
 }) {
   return (
-      <div
-          className={cn(
-              "flex h-screen w-screen flex-col items-center justify-center text-center px-6",
-              "text-neutral-900 dark:text-neutral-100",
-              "animated-gradient",
-              className
-          )}
-      >
-          {children}
-      </div>
+    <div
+      className={cn(
+        "min-h-screen w-full flex items-center justify-center transition-colors px-4 md:px-8",
+        "text-neutral-900 dark:text-neutral-100",
+        "animated-gradient",
+        className
+      )}
+    >
+      <div className="w-full max-w-5xl">{children}</div>
+    </div>
   );
 }

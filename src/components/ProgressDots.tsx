@@ -23,14 +23,17 @@ export default function ProgressDots({
           <button
             key={index}
             onClick={() => handleClick(index)}
-            className={`w-2.5 h-2.5 rounded-full transition-all 
+            aria-label={`Go to slide ${index + 1}`}
+            aria-current={isActive ? "page" : undefined}
+            className={`rounded-full transition-all 
               ${
                 isActive
-                  ? "bg-primary scale-125 shadow-lg"
-                  : "bg-muted hover:bg-primary/50"
+                  ? "bg-foreground scale-125 shadow-md"
+                  : "bg-muted hover:bg-foreground/50"
               }
+              w-2.5 h-2.5 md:w-3 md:h-3
+              focus:outline-none focus-visible:ring-2 focus-visible:ring-ring
             `}
-            aria-label={`Go to slide ${index + 1}`}
           />
         );
       })}
